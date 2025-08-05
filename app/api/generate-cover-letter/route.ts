@@ -5,12 +5,14 @@ import { generateCoverLetter } from '@/lib/job-matcher';
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
+    
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const { jobId, jobDescription, companyName } = await request.json();
+    
     if (!jobId || !jobDescription || !companyName) {
       return NextResponse.json({ 
         error: 'Missing required fields: jobId, jobDescription, companyName' 
