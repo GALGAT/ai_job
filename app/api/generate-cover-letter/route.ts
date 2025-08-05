@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import { supabase } from '@/lib/supabase';
 import { generateCoverLetter } from '@/lib/job-matcher';
 
@@ -11,7 +11,6 @@ export async function POST(request: NextRequest) {
     }
 
     const { jobId, jobDescription, companyName } = await request.json();
-
     if (!jobId || !jobDescription || !companyName) {
       return NextResponse.json({ 
         error: 'Missing required fields: jobId, jobDescription, companyName' 
@@ -50,7 +49,6 @@ export async function POST(request: NextRequest) {
       success: true, 
       coverLetter 
     });
-
   } catch (error) {
     console.error('Cover letter generation error:', error);
     return NextResponse.json({ 
