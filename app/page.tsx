@@ -23,7 +23,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function Home() {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   // Redirect authenticated users to dashboard
   if (userId) {
